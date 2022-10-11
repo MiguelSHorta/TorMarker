@@ -32,7 +32,7 @@ public class PcapManager {
     String capturePath;
     String timingsPath;
 
-    public PcapManager(String capturePath, String timingsPath, String packetsToSend, String watermarkType, String amplitude) throws PcapNativeException, NotOpenException, IOException, CsvValidationException, InterruptedException {
+    public PcapManager(String capturePath, String timingsPath, String packetsToSend, String watermarkType, String amplitude, String maxAmp) throws PcapNativeException, NotOpenException, IOException, CsvValidationException, InterruptedException {
         this.capturePath = capturePath;
         this.timingsPath = timingsPath;
         openCapture();
@@ -40,6 +40,7 @@ public class PcapManager {
         this.packetsToSend = Integer.parseInt(packetsToSend);
         previousTiming = 0;
         this.amplitude = Long.parseLong(amplitude);
+        this.maxAbsDelay = Long.parseLong(maxAmp);
         embedWatermark();
     }
 
@@ -96,7 +97,7 @@ public class PcapManager {
                         if (currentDelta > maxDelta) maxDelta = currentDelta;
 
                             delays[i] = currentDelta + maxAbsDelay;
-                        System.out.print(String.format("|%d", delays[i]));
+                        //System.out.print(String.format("|%d", delays[i]));
                     }
 
                     //System.out.print(minDelta + " ");
@@ -119,11 +120,11 @@ public class PcapManager {
                         previousTiming = currentTiming;
                         delays[i] += (microIPD / 1000);
                         totalReplayTime += delays[i];
-                        System.out.print(String.format("|%d", delays[i]));
+                        //System.out.print(String.format("|%d", delays[i]));
                     } else delays[i] = -1;
                 }
 
-                System.out.println(String.format("\nFinished crafting watermark, base delay set to %d", maxAbsDelay));
+                System.out.println(String.format("Finished crafting rainbow watermark, amp set to %d and max amp set to %d", amplitude, maxAbsDelay));
 
                 break;
 
@@ -163,12 +164,11 @@ public class PcapManager {
                     } else delays[i] = -1;
                 }
 
-                System.out.println(String.format("\nFinished crafting watermark, base delay set to %d", maxAbsDelay));
-
+                System.out.println(String.format("Finished crafting icbw watermark, amp set to %d", amplitude));
                 break;
 
             default:
-                System.out.println("Replaying pcap...");
+                System.out.println("Processing pcap...");
                 for (int i = 0; i < packetsToSend; i++)
                     if ((line = timingsReader.readNext()) != null) {
                         currentTiming = (Double.parseDouble(line[0]));
@@ -179,7 +179,7 @@ public class PcapManager {
                     } else delays[i] = -1;
         }
 
-        System.out.printf("Replay time will be %f", (totalReplayTime/1000) + (timingBuffer*packetsToSend/1000));
+        System.out.printf("Replay time will be %f seconds", (totalReplayTime/1000) + (timingBuffer*packetsToSend/1000));
     }
 
     public synchronized long nextTiming() throws NotOpenException, CsvValidationException, IOException {

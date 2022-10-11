@@ -34,7 +34,7 @@ public class InteractiveClient {
 
         while (true) {
             readConfigurationFiles();
-            System.out.println("1 path.pcap path.csv numberOfPackets watermarkType amplitude");
+            System.out.printf("Input specification: <protocol: 1> <path.pcap> <path.csv> <numberOfPackets: >50 > <watermarkType: rainbow/icbw> <amplitude> <maxAmplitude> \n\nExample input: 1 ./captures/UNBSkype30kTrain.pcap ./captures/UNBSkype30kTrain.csv 30000 rainbow 10 80\n\n");
             Scanner inFromUser = new Scanner(System.in);
             String[] paths = null;
             int protocol = 0;
@@ -52,7 +52,7 @@ public class InteractiveClient {
                     OutputStream out = socket.getOutputStream();
                     InputStream in = socket.getInputStream();
                     ack = new byte[BUF_SIZE];
-                    PcapManager pcapManager = new PcapManager(paths[0], paths[1], paths[2], paths[3], paths[4]);
+                    PcapManager pcapManager = new PcapManager(paths[0], paths[1], paths[2], paths[3], paths[4], paths[5]);
                     Thread.sleep(1000);
                     new Thread(() -> {
                         while(true) {
@@ -68,7 +68,7 @@ public class InteractiveClient {
                                     e.printStackTrace();
                                 }
                         }
-                        System.out.println("Thread closing.");
+                        System.out.println("Thread closing.\n");
                     }).start();
                     // Always running, canSend()==true means packet has been sent and thread is waiting the interleaving delay; waitMilli==-1 file has reached the end or enough packets have been sent
                     while(true){
