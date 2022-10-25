@@ -1,7 +1,17 @@
 # TorMarker
-## A Tor traffic watermarker and correlator that compromises Tor anonymous connections  
+ A Tor traffic watermarker and correlator that compromises the anonymization of Tor connections.  
 ## 1 - Tool description
-TorMarker is a tool built to correlate Tor flows leveraging on induced flow watermarks and deep learning of intrinsic traffic time properties. Implemented in the context of the dissertation: TOR K-ANONYMITY AGAINST DEEP LEARNING WATERMARKING ATTACKS: validating a Tor k-Anonimity input circuit enforcement against a deep learning watermarking attack.
+TorMarker is a tool built to correlate Tor flows leveraging on induced flow watermarking and deep learning of intrinsic traffic time properties. Implemented in the context of the dissertation:
+
+```
+@mastersthesis{tormarker,
+author       = {Peter Harwood},
+title        = {TOR K-ANONYMITY AGAINST DEEP LEARNING WATERMARKING ATTACKS: validating a Tor k-Anonimity input circuit enforcement against a deep learning watermarking attack},
+school       = {NOVA School of Science and Technology},
+year         = 2022,
+month        = 10, 
+}
+```
 
 TorMarker is able to generate watermarked Tor synthetic flows and send them through the Tor network as a user. The tool is then able to compute the probability of these induced watermarks being present in the traffic by analysing the arrival timings between packets from captured egress Tor flows.  
 
