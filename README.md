@@ -5,7 +5,7 @@ TorMarker is a tool built to correlate Tor flows leveraging on induced flow wate
 
 ```
 @mastersthesis{tormarker,
-author       = {Peter Harwood},
+author       = {Miguel Horta},
 title        = {TOR K-ANONYMITY AGAINST DEEP LEARNING WATERMARKING ATTACKS: validating a Tor k-Anonimity input circuit enforcement against a deep learning watermarking attack},
 school       = {NOVA School of Science and Technology},
 year         = 2022,
