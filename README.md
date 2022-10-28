@@ -25,11 +25,13 @@ The tool is composed of two components:
 
 There are two ways to run this component: 
 <ol>
-<li> Since it is setup as a Java project it can be compiled and run in any Java IDE (it was implemented originally in IntelliJ). To run this component just open as a new Maven project in your preferred Java IDE and execute. If confronted by the error "error: release version 6 not supported" just alter the Java Compiler target bytecode to version 8. 
+<li> Since it is setup as a Java project it can be compiled and run in any Java IDE (it was implemented originally in IntelliJ). To run this component just open as a new Maven project in your preferred Java IDE and execute. 
 
 <li> It can also be executed as a Jar file. Just run the file present in "out\artifacts\Client_jar" as a Java Jar file. Keep in mind this component was originally implemented using Java JDK 17.0.1. 
 
 </ol>
+
+Some of the more frequent errors found when running this component were: "error: release version 6 not supported" just alter the Java Compiler target bytecode to version 8; errors related to the Ncap library were solved through the following [thread](https://github.com/kaitoy/pcap4j/issues/203).
 
 ### Detector
 
